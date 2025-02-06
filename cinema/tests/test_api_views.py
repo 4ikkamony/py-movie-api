@@ -59,8 +59,6 @@ def test_movie_list_post_two_movies(client, movie_list_url):
     ]
     response = client.post(movie_list_url, data, content_type="application/json")
 
-    print(response.data)
-
     assert response.status_code == 201
     assert len(response.data) == 2
     assert Movie.objects.filter(title="test 1").exists()
@@ -79,8 +77,6 @@ def test_movie_list_post_two_movies(client, movie_list_url):
 def test_movie_detail_get(
     client, single_movie_url, create_movies, movie_id, expected_title
 ):
-    for m in Movie.objects.all():
-        print(m.title)
     response = client.get(single_movie_url(pk=movie_id))
 
     assert response.status_code == 200
